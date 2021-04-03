@@ -10,6 +10,7 @@ import Test from "../pages/Test";
 import SearchList from "../components/SearchList";
 
 import { history } from '../_helper/history'
+import { DashBoard } from "../components/admin/pages/DashBoard";
 
 const RouteComponent = () => {
   return (
@@ -20,6 +21,8 @@ const RouteComponent = () => {
           <Route path='/signup' component={Signup}/>
           <Route path='/searchlist' component={SearchList}/>
           <Route path='/test' component={Test}/>
+
+          <Route path='/admin' component={DashBoard}/>
       </Switch>
     </Router>
   );

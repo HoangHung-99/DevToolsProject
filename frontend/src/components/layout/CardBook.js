@@ -8,20 +8,20 @@ import { Link } from "react-router-dom";
 
 import * as FaIcons from "react-icons/fa";
 
-CardBook.propTypes = {
-  books: PropTypes.array,
-};
+// CardBook.propTypes = {
+//   books: PropTypes.array,
+// };
 
-CardBook.defaultProps = {
-  books: [],
-};
+// CardBook.defaultProps = {
+//   books: [],
+// };
 
 const CardBook = (props) => {
   const { books } = props;
 
   return (
     <div className="row">
-      {books.map((book) => (
+      {/* {books.map((book) => ( */}
         <div className="col-md-3">
           <div className="card" style={{ width: "180px" }}>
             <img
@@ -53,7 +53,7 @@ const CardBook = (props) => {
             </Link>
           </div>
         </div>
-      ))}
+      {/* ))} */}
     </div>
   );
 };
