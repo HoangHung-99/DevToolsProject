@@ -1,0 +1,23 @@
+.searchList--found {
+  background-color: #fff;
+  height: 100vh;
+}
+
+.searchList--notfound {
+  background-color: #f1f1f1;
+  height: 100vh;
+
+  .notfound-alert {
+    max-width: 40%;
+    margin: 0 auto;
+    margin-top: 15%;
+
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      color: #ccc;
+      text-shadow: 1px 1px 3px #000000;
+    }
+  }
+}
