@@ -11,6 +11,7 @@ exports.getBooks = (req, res) => {
       res.status(200).send({
         book
       });
+      // res.json({book})
     })
     .catch((err) => console.log(err));
 };

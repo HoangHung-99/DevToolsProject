@@ -8,25 +8,17 @@ import { Link } from "react-router-dom";
 
 import * as FaIcons from "react-icons/fa";
 
-// CardBook.propTypes = {
-//   books: PropTypes.array,
-// };
-
-// CardBook.defaultProps = {
-//   books: [],
-// };
-
 const CardBook = (props) => {
   const { books } = props;
 
   return (
     <div className="row">
-      {/* {books.map((book) => ( */}
-        <div className="col-md-3">
+      {books.map((book) => (
+        <div className="col-md-3" key={book.id_book}>
           <div className="card" style={{ width: "180px" }}>
             <img
               alt="books-img"
-              src={props.image}
+              src={book.image}
               width={180}
               height={150}
               className="card-img-top"
@@ -34,7 +26,7 @@ const CardBook = (props) => {
             <Link to="#" className="card-link">
               <div className="card-body">
                 <h5 className="card-title">
-                  <strong>{props.title}</strong>
+                  <strong>{book.title}</strong>
                 </h5>
                 <div
                   style={{
@@ -43,8 +35,8 @@ const CardBook = (props) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <p className="card-text">{props.authors}</p>
-                  <p className="card-text">{props.price}</p>
+                  <p className="card-text">{book.author}</p>
+                  <p className="card-text">{book.price}</p>
                   <Link>
                     <FaIcons.FaPlusCircle />
                   </Link>
@@ -53,9 +45,17 @@ const CardBook = (props) => {
             </Link>
           </div>
         </div>
-      {/* ))} */}
+      ))}
     </div>
   );
+};
+
+CardBook.propTypes = {
+  books: PropTypes.array,
+};
+
+CardBook.defaultProps = {
+  books: [],
 };
 
 export default CardBook;

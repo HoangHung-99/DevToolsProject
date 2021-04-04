@@ -38,21 +38,24 @@ function App() {
 
   useEffect(() => {
     async function fetchBooks() {
-      // const results = axios
-      //   .get("http://localhost:5000/api/book/get")
-      //   .then((res) => {
-      //     setData(res.data);
-      //     console.log(res.data);
-      //     setLoading(true);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      try {
+        // const requestUrl = "http://localhost:5000/api/book/get";
+        const requestUrl = "http://js-post-api.herokuapp.com/api/posts";
+        const res = await fetch(requestUrl);
+        const resJson = await res.json();
+        console.log({ resJson });
+
+        const { data } = resJson;
+        setResult(data);
+        console.log(result);
+      } catch (error) {
+        console.log("Error: ", error.message);
+      }
     }
     fetchBooks();
   }, []);
 
-  //console.log(bookList);
+  
 
   const formik = useFormik({
     initialValues: {
@@ -150,7 +153,7 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
-            <CardBook />
+            <CardBook books={result} />
 
             <div className="card-list-title" style={{ marginTop: "20px" }}>
               <h4>
@@ -158,7 +161,7 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
-            <CardBook />
+            <CardBook books={result}/>
           </div>
         </div>
       </div>
