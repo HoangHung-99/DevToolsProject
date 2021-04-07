@@ -15,7 +15,7 @@ const CardBook = (props) => {
     <div className="row">
       {books.map((book) => (
         <div className="col-md-3" key={book.id_book}>
-          <div className="card" style={{ width: "180px" }}>
+          <div className="card" style={{ width: "180px", height: "270px" }}>
             <img
               alt="books-img"
               src={book.image}
@@ -35,7 +35,7 @@ const CardBook = (props) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <p className="card-text">{book.author}</p>
+                  <p className="card-text">{book.authors}</p>
                   <p className="card-text">{book.price}</p>
                   <Link>
                     <FaIcons.FaPlusCircle />

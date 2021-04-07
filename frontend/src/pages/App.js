@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import firebase from "firebase/app";
-import BookService from "../services/books.services";
+import BookServices from "../services/books.services";
 
 import CarouselSlider from "../components/CarouselSlider";
 import Header from "../components/layout/Header";
@@ -12,17 +13,26 @@ import "../Styles/scss/HomePage.scss";
 
 import { CarouselData } from "../components/CarouselData";
 import { SidebarData } from "../components/layout/SidebarData";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import * as FaIcons from "react-icons/fa";
 import CardBook from "../components/layout/CardBook";
+import FillterForm from "../components/FillterForm";
+import booksServices from "../services/books.services";
 //import axios from "axios";
 
 function App() {
-  //const [data, setData] = useState([]);
-  //const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState([]);
-  const [isRedirect, setIsRedirect] = useState(false);
+  const [booklist, setBooklist] = useState([]);
+  const [filter, setFilter] = useState(
+    {
+      _limit: 10,
+      _page: 1,
+      title: "",
+      authors: "",
+      description: "",
+    }
+    // BookServices.findBooks()
+  );
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const unregisterAuthObserved = firebase
@@ -39,42 +49,72 @@ function App() {
   useEffect(() => {
     async function fetchBooks() {
       try {
-        // const requestUrl = "http://localhost:5000/api/book/get";
-        const requestUrl = "http://js-post-api.herokuapp.com/api/posts";
+        const requestUrl = "http://localhost:5000/api/book/get";
+        // const requestUrl = "http://js-post-api.herokuapp.com/api/posts?postId=1";
         const res = await fetch(requestUrl);
         const resJson = await res.json();
-        console.log({ resJson });
+        //console.log({ resJson });
 
-        const { data } = resJson;
-        setResult(data);
-        console.log(result);
+        setBooklist(resJson);
       } catch (error) {
         console.log("Error: ", error.message);
       }
     }
+
     fetchBooks();
   }, []);
 
-  
+  //console.log(booklist);
 
-  const formik = useFormik({
-    initialValues: {
-      query: "",
-    },
+  // const formik = useFormik({
+  //   initialValues: {
+  //     title: "",
+  //     authors: "",
+  //     description: "",
+  //   },
 
-    onSubmit: () => {
-      //setLoading(true);
-      BookService.search(formik.values.query)
-        .then((res) => {
-          setIsRedirect(true);
-          setResult(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  });
+  //   handleFillerChange: (newFilters) => {
+  //     console.log("New filters: ", newFilters);
+  //     // setFilter({
+  //     //   ...filter,
+  //     //   title: newFilters.searchTerm,
+  //     //   authors: newFilters.searchTerm,
+  //     //   description: newFilters.searchTerm
+  //     // })
+
+  //     BookServices.findBooks({
+  //       ...filter,
+  //       title: newFilters.searchTerm,
+  //       description: newFilters.searchTerm,
+  //       authors: newFilters.searchTerm,
+  //     }).then(
+  //       (res) => {
+  //         setFilter(filter);
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //       }
+  //     );
+  //     console.log(filter);
+  //     console.log(BookServices.findBooks());
+  //   },
+  // });
+
+  const handleFillerChange = (newFilters) => {
+    console.log("New filters: ", newFilters);
+
+    BookServices.findBooks({
+      ...filter,
+      params: newFilters.searchTerm,
+    });
+    console.log(filter);
+    console.log(BookServices.findBooks());
+  };
+
+  const search = (rows) => {
+    return (rows.filter((row) => row.title.toLowerCase().indexOf(query) > -1) &&
+    rows.filter((row) => row.authors.toLowerCase().indexOf(query) > -1))
+  };
 
   return (
     <div>
@@ -99,6 +139,7 @@ function App() {
             </ul>
           </div>
           <div className="col-md-9">
+            {/* <FillterForm onSubmit={handleFillerChange} /> */}
             <div
               className="input-group search-bar"
               style={{ paddingRight: "5px" }}
@@ -108,30 +149,14 @@ function App() {
                 className="form-control"
                 placeholder="Tìm kiếm..."
                 name="query"
-                value={formik.values.query}
-                onChange={formik.handleChange}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
               />
-
-              {isRedirect && (
-                <Redirect
-                  to={{
-                    pathname: `/searchlist/${formik.values.query}`,
-                    state: { result },
-                  }}
-                />
-              )}
-              <form onClick={formik.handleSubmit}>
-                <div className="input-group-append">
-                  <button
-                    type="submit"
-                    //href="/searchlist"
-
-                    className="btn btn-dark"
-                  >
-                    <FaIcons.FaSearch />
-                  </button>
-                </div>
-              </form>
+              {/* <div className="input-group-append">
+        <button className="btn btn-dark">
+          <FaIcons.FaSearch />
+        </button>
+      </div> */}
             </div>
             <div className="card-list-title">
               <h4>
@@ -139,6 +164,7 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
+            <CardBook books={search(booklist)} />
             {/* {data && data.length > 0 && !loading ? (
               <div>Loading...</div>
             ) : (
@@ -153,7 +179,7 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
-            <CardBook books={result} />
+            <CardBook books={booklist} />
 
             <div className="card-list-title" style={{ marginTop: "20px" }}>
               <h4>
@@ -161,7 +187,7 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
-            <CardBook books={result}/>
+            <CardBook books={booklist} />
           </div>
         </div>
       </div>

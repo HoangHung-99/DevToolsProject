@@ -8,10 +8,9 @@ const Op = db.Sequelize.Op;
 exports.getBooks = (req, res) => {
   Book.findAll()
     .then((book) => {
-      res.status(200).send({
-        book
-      });
-      // res.json({book})
+      res.status(200).send(JSON.stringify(book));
+      //res.json({book})
+      //console.log(JSON.stringify(book));
     })
     .catch((err) => console.log(err));
 };
@@ -56,15 +55,27 @@ exports.findBooks = (req, res) => {
 
   Book.findAll({
     where: {
-      title: {
-        [Op.like]: "%" + term + "%",
-      },
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: "%" + req.body.title + "%",
+          },
+        },
+        {
+          authors: {
+            [Op.like]: "%" + req.body.authors + "%",
+          },
+        },
+        {
+          description: {
+            [Op.like]: "%" + req.body.description + "%",
+          },
+        },
+      ],
     },
   })
     .then((book) => {
-      res.status(200).send({
-        book
-      });
+      res.status(200).send(JSON.stringify(book));
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
