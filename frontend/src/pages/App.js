@@ -112,8 +112,10 @@ function App() {
   };
 
   const search = (rows) => {
-    return (rows.filter((row) => row.title.toLowerCase().indexOf(query) > -1) &&
-    rows.filter((row) => row.authors.toLowerCase().indexOf(query) > -1))
+    return (
+      rows.filter((row) => row.title.toLowerCase().indexOf(query) > -1)
+      // rows.filter((row) => row.authors.toLowerCase().indexOf(query) > -1)
+    );
   };
 
   return (

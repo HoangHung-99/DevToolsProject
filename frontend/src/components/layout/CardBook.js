@@ -15,7 +15,7 @@ const CardBook = (props) => {
     <div className="row">
       {books.map((book) => (
         <div className="col-md-3" key={book.id_book}>
-          <div className="card" style={{ width: "180px", height: "270px" }}>
+          <div className="card" style={{ width: "180px", height: "270px", marginTop: "10px" }}>
             <img
               alt="books-img"
               src={book.image}
