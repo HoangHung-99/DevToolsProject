@@ -14,8 +14,8 @@ const CardBook = (props) => {
   return (
     <div className="row">
       {books.map((book) => (
-        <div className="col-md-3" key={book.id_book}>
-          <div className="card" style={{ width: "180px", height: "270px" }}>
+        <div className="col-md-4" key={book.id_book} style={{ marginTop: "15px" }}>
+          <div className="card" style={{ width: "230px", height: "300px" }}>
             <img
               alt="books-img"
               src={book.image}
@@ -25,7 +25,7 @@ const CardBook = (props) => {
             />
             <Link to="#" className="card-link">
               <div className="card-body">
-                <h5 className="card-title">
+                <h5 className="card-title text-dark text-truncate">
                   <strong>{book.title}</strong>
                 </h5>
                 <div
@@ -35,11 +35,26 @@ const CardBook = (props) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <p className="card-text">{book.authors}</p>
-                  <p className="card-text">{book.price}</p>
-                  <Link>
-                    <FaIcons.FaPlusCircle />
-                  </Link>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <p className="card-text text-dark">{book.authors}</p>
+                    -
+                    <p className="card-text text-dark"><strong>{book.price}</strong>vnd</p>
+                  </div>
+                </div>
+                <div
+                  className="btn-card"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "15px",
+                  }}
+                >
+                  <button className="btn btn-dark">
+                    <FaIcons.FaHeart />
+                  </button>
+                  <button className="btn btn-dark">
+                    <FaIcons.FaCartPlus />
+                  </button>
                 </div>
               </div>
             </Link>

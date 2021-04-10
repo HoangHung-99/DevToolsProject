@@ -22,6 +22,7 @@ import booksServices from "../services/books.services";
 
 function App() {
   const [booklist, setBooklist] = useState([]);
+  const [filterErr, setFilterErr] = useState(false)
   const [filter, setFilter] = useState(
     {
       _limit: 10,
@@ -112,9 +113,18 @@ function App() {
   };
 
   const search = (rows) => {
-    return (rows.filter((row) => row.title.toLowerCase().indexOf(query) > -1) &&
-    rows.filter((row) => row.authors.toLowerCase().indexOf(query) > -1))
+    try {
+      return (
+        rows.filter((row) => row.title.toLowerCase().indexOf(query) > -1) ||
+        rows.filter((row) => row.authors.toLowerCase().indexOf(query) > -1)
+      );
+    } catch (error) {
+      console.log(error);
+      setFilterErr(true)
+    }
   };
+
+  console.log(search(booklist));
 
   return (
     <div>
@@ -152,11 +162,6 @@ function App() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              {/* <div className="input-group-append">
-        <button className="btn btn-dark">
-          <FaIcons.FaSearch />
-        </button>
-      </div> */}
             </div>
             <div className="card-list-title">
               <h4>
@@ -164,7 +169,8 @@ function App() {
               </h4>
               <Link to="#">Xem thêm</Link>
             </div>
-            <CardBook books={search(booklist)} />
+            {!filterErr ? <CardBook books={search(booklist)}/> : "Có gì đó sai sai :(("}
+            
             {/* {data && data.length > 0 && !loading ? (
               <div>Loading...</div>
             ) : (
