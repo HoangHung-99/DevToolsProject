@@ -25,14 +25,12 @@ import "../../Styles/scss/layout/Header.scss";
 
 const Header = (props) => {
   //const [query, setQuery] = useState("");
-  
+
   // const [cart, setCart] = useState(false);
   // const [clicked, setClicked] = useState(false);
   // const [user] = useAuthState(auth);
   const [profileBar, setProfileBar] = useState(false);
-  const [getCurrentUser] = useState(
-    AuthService.getCurrentUser()
-  );
+  const [getCurrentUser] = useState(AuthService.getCurrentUser());
 
   // const showCartList = () => setCart(!cart);
   const showprofileBar = () => setProfileBar(!profileBar);
@@ -68,6 +66,7 @@ const Header = (props) => {
               </ul>
             </div>
           </div>
+          
 
           <div className="right-side">
             <div className="signin-btn">
