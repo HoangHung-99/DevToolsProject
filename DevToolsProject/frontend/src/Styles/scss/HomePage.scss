@@ -1,0 +1,55 @@
+.home-content {
+  margin-top: 40px;
+
+  .side-bar {
+    padding: 15px 15px 0px 0px;
+    height: 330px;
+
+    // border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 15px 15px 15px -20px #555;
+
+    background-color: #f6f6f6;
+
+    .typeList {
+      list-style: none;
+
+      li {
+        padding: 10px;
+
+        border-bottom: 1px solid #ccc;
+
+        a {
+          padding: 10px 10px 10px 0;
+
+          text-decoration: none;
+
+          color: #000;
+
+          &:hover {
+            font-weight: 500;
+          }
+        }
+      }
+
+      li:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .card-list-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      font-size: 20px;
+    }
+  }
+}
+
+.carouselSlider{
+  height: 600px;
+  // background-color: #000;
+}

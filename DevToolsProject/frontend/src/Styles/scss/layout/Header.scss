@@ -1,0 +1,137 @@
+.header {
+  height: 110px;
+
+  display: flex;
+  align-items: center;
+  z-index: 100;
+
+  box-shadow: 0px 15px 15px -20px #555;
+
+  background-color: #f6f6f6;
+
+  .btn-hidden {
+    visibility: hidden;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .left-side {
+      margin-top: 15px;
+
+      display: flex;
+      align-items: center;
+
+      .logo {
+        font-size: 23px;
+        font-weight: bold;
+
+        text-align: center;
+
+        a {
+          font-size: 25px;
+
+          text-decoration: none;
+
+          color: #555;
+        }
+
+        span {
+          padding: 10px;
+
+          border-radius: 5px;
+
+          background-color: #555;
+          color: #fff;
+        }
+      }
+
+      ul {
+        display: flex;
+        gap: 1em;
+
+        list-style: none;
+
+        li {
+          a {
+            text-decoration: none;
+
+            font-size: 18px;
+            font-weight: 500;
+
+            color: #555;
+          }
+        }
+      }
+    }
+
+    .right-side {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      .search-bar {
+        width: 250px;
+      }
+
+      .profileList {
+        width: 180px;
+        padding: 10px 20px 10px 20px;
+
+        position: absolute;
+        top: 85px;
+        right: 230px;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        list-style: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+
+        text-align: end;
+
+        background-color: #f6f6f6;
+
+        //transition: 0.5s;
+
+        li {
+          padding: 5px;
+
+          a {
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            color: #555;
+          }
+
+          &:hover {
+            border-radius: 5px;
+
+            background-color: #fff;
+          }
+        }
+
+        li:last-child {
+          padding-bottom: 5px;
+          margin-top: 10px;
+
+          border-top: 1px solid #ccc;
+        }
+      }
+
+      .profileList--close {
+        position: absolute;
+        top: 80px;
+        right: 80px;
+        z-index: 1;
+
+        background-color: inherit;
+      }
+    }
+  }
+}

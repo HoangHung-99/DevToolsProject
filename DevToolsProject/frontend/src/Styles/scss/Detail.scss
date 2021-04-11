@@ -1,0 +1,44 @@
+.title {
+  .title-detail {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.card-list-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    font-size: 20px;
+  }
+}
+
+.rightSide {
+  width: 100%;
+  padding: 10px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  ul {
+    list-style: none;
+    //   margin: 0;
+    padding: 0;
+
+    display: flex;
+    gap: 20px;
+    li {
+      display: flex;
+      justify-content: baseline;
+      a {
+        color: #555;
+        font-size: 20px;
+        font-weight: 500px;
+
+        text-decoration: none;
+      }
+    }
+  }
+}
